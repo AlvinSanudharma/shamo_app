@@ -210,7 +210,7 @@ class SignUpPage extends StatelessWidget {
       return Container(
         height: 50,
         width: double.infinity,
-        margin: EdgeInsets.only(top: 30),
+        margin: const EdgeInsets.only(top: 30),
         child: TextButton(
           onPressed: () {},
           style: TextButton.styleFrom(
@@ -218,7 +218,7 @@ class SignUpPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12))),
           child: Text(
-            'Sign In',
+            'Sign Up',
             style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
           ),
         ),
@@ -247,25 +247,20 @@ class SignUpPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor1,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                header(),
-                nameInput(),
-                userNameInput(),
-                emailInput(),
-                passwordInput(),
-                signUpButton(),
-                const SizedBox(
-                  height: 21,
-                ),
-                footer()
-              ],
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          children: [
+            header(),
+            nameInput(),
+            userNameInput(),
+            emailInput(),
+            passwordInput(),
+            signUpButton(),
+            const SizedBox(
+              height: 21,
             ),
-          ),
+            footer()
+          ],
         ),
       ),
     );
