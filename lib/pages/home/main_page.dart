@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shamo_app/pages/home/chat_page.dart';
 import 'package:shamo_app/pages/home/home_page.dart';
-import 'package:shamo_app/pages/home/wishlist_page%20copy.dart';
+import 'package:shamo_app/pages/home/profile_page.dart';
 import 'package:shamo_app/pages/home/wishlist_page.dart';
 import 'package:shamo_app/theme.dart';
 
@@ -115,7 +115,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor1,
+      backgroundColor: currentIndex == 0 ? backgroundColor1 : backgroundColor3,
       floatingActionButton: cartButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: customBottomNav(),
