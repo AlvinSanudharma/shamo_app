@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo_app/providers/auth_provider.dart';
 import 'package:shamo_app/theme.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  SignUpPage({super.key});
+
+  final nameController = TextEditingController(text: '');
+  final usernameController = TextEditingController(text: '');
+  final emailController = TextEditingController(text: '');
+  final passwordController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handleSignUp() async {
+      if (await authProvider.register(
+          name: nameController.text,
+          username: usernameController.text,
+          email: emailController.text,
+          password: passwordController.text)) {
+        Navigator.pushNamed(context, '/home');
+      } else {}
+    }
+
     Widget header() {
       return Container(
-        margin: EdgeInsets.only(top: 30),
+        margin: const EdgeInsets.only(top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -59,6 +78,7 @@ class SignUpPage extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                         child: TextFormField(
+                      controller: nameController,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your Full Name',
                           hintStyle: subtitleTextStyle),
@@ -80,7 +100,7 @@ class SignUpPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Full Name',
+              'Username',
               style:
                   primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
             ),
@@ -103,6 +123,7 @@ class SignUpPage extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                         child: TextFormField(
+                      controller: usernameController,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your Username',
                           hintStyle: subtitleTextStyle),
@@ -147,6 +168,7 @@ class SignUpPage extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                         child: TextFormField(
+                      controller: emailController,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your email address',
                           hintStyle: subtitleTextStyle),
@@ -191,6 +213,7 @@ class SignUpPage extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                         child: TextFormField(
+                      controller: passwordController,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your Password',
                           hintStyle: subtitleTextStyle),
@@ -212,7 +235,7 @@ class SignUpPage extends StatelessWidget {
         width: double.infinity,
         margin: const EdgeInsets.only(top: 30),
         child: TextButton(
-          onPressed: () {},
+          onPressed: handleSignUp,
           style: TextButton.styleFrom(
               backgroundColor: primaryColor,
               shape: RoundedRectangleBorder(
