@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       providers: [ChangeNotifierProvider(create: (context) => AuthProvider())],
       child: MaterialApp(debugShowCheckedModeBanner: false, routes: {
         '/': (context) => const SplashPage(),
-        '/sign-in': (context) => const SignInPage(),
+        '/sign-in': (context) => SignInPage(),
         '/sign-up': (context) => SignUpPage(),
         '/home': (context) => const MainPage(),
         '/detail-chat': (context) => const DetailChatPage(),

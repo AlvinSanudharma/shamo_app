@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shamo_app/providers/auth_provider.dart';
 import 'package:shamo_app/theme.dart';
+import 'package:shamo_app/widgets/loading_button.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -14,6 +17,7 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    bool isLoading = authProvider.isLoading;
 
     handleSignUp() async {
       if (await authProvider.register(
@@ -22,7 +26,14 @@ class SignUpPage extends StatelessWidget {
           email: emailController.text,
           password: passwordController.text)) {
         Navigator.pushNamed(context, '/home');
-      } else {}
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: alertColor,
+            content: const Text(
+              'Gagal Register',
+              textAlign: TextAlign.center,
+            )));
+      }
     }
 
     Widget header() {
@@ -278,7 +289,7 @@ class SignUpPage extends StatelessWidget {
             userNameInput(),
             emailInput(),
             passwordInput(),
-            signUpButton(),
+            isLoading ? const LoadingButton() : signUpButton(),
             const SizedBox(
               height: 21,
             ),
