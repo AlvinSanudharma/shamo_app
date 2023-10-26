@@ -15,7 +15,7 @@ class SignInPage extends StatelessWidget {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     bool isLoading = authProvider.isLoadingLogin;
 
-    handleSignIn() async {
+    handleSignIn(context) async {
       if (await authProvider.login(
           email: emailController.text, password: passwordController.text)) {
         Navigator.pushNamed(context, '/home');
@@ -149,7 +149,9 @@ class SignInPage extends StatelessWidget {
         width: double.infinity,
         margin: const EdgeInsets.only(top: 30),
         child: TextButton(
-          onPressed: handleSignIn,
+          onPressed: () {
+            handleSignIn(context);
+          },
           style: TextButton.styleFrom(
               backgroundColor: primaryColor,
               shape: RoundedRectangleBorder(

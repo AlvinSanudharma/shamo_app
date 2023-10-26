@@ -11,6 +11,7 @@ import 'package:shamo_app/pages/sign_in_page.dart';
 import 'package:shamo_app/pages/sign_up_page.dart';
 import 'package:shamo_app/pages/splash_page.dart';
 import 'package:shamo_app/providers/auth_provider.dart';
+import 'package:shamo_app/providers/product_provider.dart';
 
 void main() => runApp(const MyApp());
 
@@ -20,7 +21,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => AuthProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+      ],
       child: MaterialApp(debugShowCheckedModeBanner: false, routes: {
         '/': (context) => const SplashPage(),
         '/sign-in': (context) => SignInPage(),

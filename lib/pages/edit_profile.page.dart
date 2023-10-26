@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo_app/models/user_model.dart';
+import 'package:shamo_app/providers/auth_provider.dart';
 import 'package:shamo_app/theme.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -6,6 +9,9 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel? user = authProvider.user;
+
     PreferredSizeWidget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -42,7 +48,7 @@ class EditProfilePage extends StatelessWidget {
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                  hintText: 'Alex keinnzal',
+                  hintText: user?.name ?? '',
                   hintStyle: primaryTextStyle,
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: subtitleColor))),
@@ -65,7 +71,7 @@ class EditProfilePage extends StatelessWidget {
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                  hintText: '@alexkeinn',
+                  hintText: '@${user?.username ?? ''}',
                   hintStyle: primaryTextStyle,
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: subtitleColor))),
@@ -88,7 +94,7 @@ class EditProfilePage extends StatelessWidget {
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                  hintText: 'alex.kein@email.com',
+                  hintText: user?.email ?? '',
                   hintStyle: primaryTextStyle,
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: subtitleColor))),
@@ -112,6 +118,7 @@ class EditProfilePage extends StatelessWidget {
               decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
+                      fit: BoxFit.fill,
                       image: AssetImage('assets/image_profile.png'))),
             ),
             nameInput(),
