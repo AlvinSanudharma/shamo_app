@@ -33,7 +33,7 @@ class ProductModel {
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
       galleries: json['galleries']
-          .map<GalleryModel>((gallery) => GalleryModel.fromJson(json))
+          .map<GalleryModel>((gallery) => GalleryModel.fromJson(gallery))
           .toList());
 
   Map<String, dynamic> toJson() {

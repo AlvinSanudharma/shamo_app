@@ -7,7 +7,7 @@ class ProductProvider with ChangeNotifier {
 
   List<ProductModel> get products => _products;
 
-  set products(List<ProductModel> products) {
+  set setProducts(List<ProductModel> products) {
     _products = products;
 
     notifyListeners();
@@ -17,7 +17,7 @@ class ProductProvider with ChangeNotifier {
     try {
       List<ProductModel> products = await ProductService().getProducts();
 
-      _products = products;
+      setProducts = products;
     } catch (e) {
       print(e);
     }

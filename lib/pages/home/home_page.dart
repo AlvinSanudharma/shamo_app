@@ -2,17 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shamo_app/models/user_model.dart';
 import 'package:shamo_app/providers/auth_provider.dart';
+import 'package:shamo_app/providers/product_provider.dart';
 import 'package:shamo_app/theme.dart';
 import 'package:shamo_app/widgets/product_card.dart';
 import 'package:shamo_app/widgets/product_tile.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    getInit();
+
+    super.initState();
+  }
+
+  getInit() async {
+    await Provider.of<ProductProvider>(context, listen: false).getProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel? user = authProvider.user;
+
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     Widget header() {
       return Container(
@@ -158,7 +177,11 @@ class HomePage extends StatelessWidget {
                 width: defaultMargin,
               ),
               Row(
-                children: [ProductCard()],
+                children: productProvider.products.map((product) {
+                  return ProductCard(
+                    product: product,
+                  );
+                }).toList(),
               )
             ],
           ),
@@ -181,7 +204,11 @@ class HomePage extends StatelessWidget {
       return Container(
         margin: const EdgeInsets.only(top: 14),
         child: Column(
-          children: [ProductTile()],
+          children: productProvider.products
+              .map((product) => ProductTile(
+                    product: product,
+                  ))
+              .toList(),
         ),
       );
     }
