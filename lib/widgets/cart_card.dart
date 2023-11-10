@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo_app/models/cart_model.dart';
+import 'package:shamo_app/providers/cart_provider.dart';
 import 'package:shamo_app/theme.dart';
 
 class CartCard extends StatelessWidget {
-  const CartCard({super.key});
+  const CartCard({super.key, this.cart});
+
+  final CartModel? cart;
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(top: defaultMargin),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -20,9 +27,9 @@ class CartCard extends StatelessWidget {
                 height: 60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    image: const DecorationImage(
-                        image: AssetImage(
-                      'assets/image_shoes.png',
+                    image: DecorationImage(
+                        image: NetworkImage(
+                      'http://10.0.2.2:8000${cart?.product.galleries[0].url}',
                     ))),
               ),
               const SizedBox(
@@ -33,34 +40,44 @@ class CartCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Terrex Urban Low',
+                    cart?.product.name ?? '',
                     style: primaryTextStyle.copyWith(fontWeight: semiBold),
                   ),
                   Text(
-                    '\$143,98',
+                    '\$${cart?.product.price}',
                     style: priceTextStyle,
                   )
                 ],
               )),
               Column(
                 children: [
-                  Image.asset(
-                    'assets/button_add.png',
-                    width: 16,
+                  GestureDetector(
+                    onTap: () {
+                      cartProvider.addQuantity(cart!.id);
+                    },
+                    child: Image.asset(
+                      'assets/button_add.png',
+                      width: 16,
+                    ),
                   ),
                   const SizedBox(
                     height: 2,
                   ),
                   Text(
-                    '2',
+                    cart?.quantity.toString() ?? '',
                     style: primaryTextStyle.copyWith(fontWeight: medium),
                   ),
                   const SizedBox(
                     height: 2,
                   ),
-                  Image.asset(
-                    'assets/button_min.png',
-                    width: 16,
+                  GestureDetector(
+                    onTap: () {
+                      cartProvider.reduceQuantity(cart!.id);
+                    },
+                    child: Image.asset(
+                      'assets/button_min.png',
+                      width: 16,
+                    ),
                   ),
                 ],
               )
@@ -69,21 +86,27 @@ class CartCard extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          Row(
-            children: [
-              Image.asset(
-                'assets/icon_remove.png',
-                width: 10,
-                height: 12,
-              ),
-              const SizedBox(
-                width: 4,
-              ),
-              Text(
-                'Remove',
-                style: alertTextStyle.copyWith(fontSize: 12, fontWeight: light),
-              )
-            ],
+          GestureDetector(
+            onTap: () {
+              cartProvider.removeCart(cart!.id);
+            },
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/icon_remove.png',
+                  width: 10,
+                  height: 12,
+                ),
+                const SizedBox(
+                  width: 4,
+                ),
+                Text(
+                  'Remove',
+                  style:
+                      alertTextStyle.copyWith(fontSize: 12, fontWeight: light),
+                )
+              ],
+            ),
           )
         ],
       ),

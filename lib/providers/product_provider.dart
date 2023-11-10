@@ -7,19 +7,13 @@ class ProductProvider with ChangeNotifier {
 
   List<ProductModel> get products => _products;
 
-  set setProducts(List<ProductModel> products) {
-    _products = products;
-
-    notifyListeners();
-  }
-
   Future<void> getProducts() async {
     try {
-      List<ProductModel> products = await ProductService().getProducts();
+      _products = await ProductService().getProducts();
 
-      setProducts = products;
+      notifyListeners();
     } catch (e) {
-      print(e);
+      throw e;
     }
   }
 }

@@ -17,9 +17,11 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    bool isLoading = authProvider.isLoading;
+    bool isLoading = authProvider.isLoadingRegister;
 
     handleSignUp() async {
+      authProvider.isLoadingRegister = true;
+
       if (await authProvider.register(
           name: nameController.text,
           username: usernameController.text,
@@ -34,6 +36,8 @@ class SignUpPage extends StatelessWidget {
               textAlign: TextAlign.center,
             )));
       }
+
+      authProvider.isLoadingRegister = false;
     }
 
     Widget header() {

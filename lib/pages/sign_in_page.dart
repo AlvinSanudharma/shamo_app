@@ -16,6 +16,8 @@ class SignInPage extends StatelessWidget {
     bool isLoading = authProvider.isLoadingLogin;
 
     handleSignIn(context) async {
+      authProvider.isLoadingLogin = true;
+
       if (await authProvider.login(
           email: emailController.text, password: passwordController.text)) {
         Navigator.pushNamed(context, '/home');
@@ -27,6 +29,8 @@ class SignInPage extends StatelessWidget {
               textAlign: TextAlign.center,
             )));
       }
+
+      authProvider.isLoadingLogin = false;
     }
 
     Widget header() {

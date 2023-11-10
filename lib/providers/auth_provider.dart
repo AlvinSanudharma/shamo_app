@@ -13,12 +13,12 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool _isLoading = false;
+  bool _isLoadingRegister = false;
 
-  bool get isLoading => _isLoading;
+  bool get isLoadingRegister => _isLoadingRegister;
 
-  set isLoading(bool isLoading) {
-    _isLoading = isLoading;
+  set isLoadingRegister(bool isLoading) {
+    _isLoadingRegister = isLoading;
 
     notifyListeners();
   }
@@ -39,8 +39,6 @@ class AuthProvider with ChangeNotifier {
       required String email,
       required String password}) async {
     try {
-      isLoading = true;
-
       UserModel user = await AuthService().register(
           name: name, username: username, email: email, password: password);
 
@@ -49,15 +47,11 @@ class AuthProvider with ChangeNotifier {
       return true;
     } catch (e) {
       return false;
-    } finally {
-      isLoading = false;
     }
   }
 
   Future<bool> login({required String email, required String password}) async {
     try {
-      isLoadingLogin = true;
-
       UserModel user =
           await AuthService().login(email: email, password: password);
 
@@ -66,8 +60,6 @@ class AuthProvider with ChangeNotifier {
       return true;
     } catch (e) {
       return false;
-    } finally {
-      isLoadingLogin = false;
     }
   }
 }
