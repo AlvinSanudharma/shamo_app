@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "874588118226",
+    "project_id": "shamo-cfd7d",
+    "storage_bucket": "shamo-cfd7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874588118226:android:91c79047f3d94594c9e10b",
+        "android_client_info": {
+          "package_name": "com.example.shamo_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC50tiqUWwOpL5qVulQGPAy0llBimlboB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
