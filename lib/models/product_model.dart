@@ -50,3 +50,15 @@ class ProductModel {
     };
   }
 }
+
+class UninitializedProductModel extends ProductModel {
+  UninitializedProductModel(
+      {required super.id,
+      required super.name,
+      required super.price,
+      required super.description,
+      required super.category,
+      required super.createdAt,
+      required super.updatedAt,
+      required super.galleries});
+}
